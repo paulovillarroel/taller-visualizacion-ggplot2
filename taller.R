@@ -384,7 +384,28 @@ gb + scale_color_viridis_c(option = "mako")
 chicago |> 
   ggplot(aes(x = date, y = temp_celsius)) +
   geom_point() +
-  geom_hline(yintercept = c(0, 25)) +
+  geom_hline(yintercept = c(0, 25)) + # Agrega una línea horizontal
+  labs(x = "Year", y = "Temperature (°C)")
+
+chicago |> 
+  ggplot(aes(x = date, y = temp_celsius)) +
+  geom_point() +
+  geom_vline(xintercept = as.Date("2000-01-13")) + # Agrega una línea vertical
+  labs(x = "Year", y = "Temperature (°C)")
+
+# Ajustar características de las líneas
+chicago |> 
+  ggplot(aes(x = date, y = temp_celsius)) +
+  geom_point() +
+  geom_vline(xintercept = as.Date("2000-01-13"), lwd = 1.5, lty = 2, color = "red") + 
+  labs(x = "Year", y = "Temperature (°C)")
+
+# Agregar texto
+chicago |> 
+  ggplot(aes(x = date, y = temp_celsius)) +
+  geom_point() +
+  geom_vline(xintercept = as.Date("2000-01-13"), lwd = 1.5, lty = 2, color = "red") + 
+  geom_text(x = as.Date("2000-01-13"), y = 30, label = "2000-01-13", hjust = -0.2, color = "red", size = 6) +
   labs(x = "Year", y = "Temperature (°C)")
 
 
