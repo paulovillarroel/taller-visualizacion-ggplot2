@@ -13,7 +13,7 @@ glimpse(data)
 
 # Lo básico ----
 
-g <- ggplot(chicago, aes(x = date, y = temp_celsius))
+(g <- ggplot(chicago, aes(x = date, y = temp_celsius)))
 
 g + geom_point()
 
@@ -24,9 +24,9 @@ g + geom_line() + geom_point()
 # Paletas de colores http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf
 # Colores RGB https://coolors.co/
 
-g + geom_point(color = "firebrick", shape = "diamond", size = 2)
+g + geom_point(color = "#b388eb", shape = "diamond", size = 2)
 
-g + geom_point(color = "firebrick", shape = "diamond", size = 2) +
+g + geom_point(color = "#b388eb", shape = "diamond", size = 2) +
     geom_line(color = "firebrick", linetype = "dotted", lwd = 0.3)
 
 theme_set(theme_bw()) # theme_grey() por defecto
@@ -38,7 +38,7 @@ g + geom_point(color = "firebrick")
 
 # labs
 chicago |> 
-  ggplot(aes(x = date, y = temp_celsius)) +
+  ggplot(aes(x = date, y = temp_celsius)) + 
   geom_point(color = "firebrick") +
   labs(x = "Year", y = "Temperature (°C)")
 
@@ -59,23 +59,23 @@ chicago |>
   geom_point(color = "firebrick") +
   labs(x = "Year", y = "Temperature (°C)") +
   theme(axis.title.x = element_text(vjust = 0, size = 15),
-        axis.title.y = element_text(vjust = 2, size = 15))
+        axis.title.y = element_text(vjust = 1, size = 15))
 
 chicago |> 
   ggplot(aes(x = date, y = temp_celsius)) +
   geom_point(color = "firebrick") +
   labs(x = "Year", y = "Temperature (°C)") +
-  theme(axis.title.x = element_text(margin = margin(t = 10), size = 15), # t = top
-        axis.title.y = element_text(margin = margin(r = 10), size = 15)) # r = right
+  theme(axis.title.x = element_text(margin = margin(t = 30), size = 15), # t = top
+        axis.title.y = element_text(margin = margin(r = 30, t = 10), size = 15)) # r = right
 
-# Cammbiar las estéticas de los ejes
+# Cambiar las estéticas de los ejes
 
 chicago |> 
   ggplot(aes(x = date, y = temp_celsius)) +
   geom_point(color = "firebrick") +
   labs(x = "Year", y = "Temperature (°C)") +
   theme(axis.title = element_text(size = 15, color = "firebrick",
-                                  face = "italic")) # bold.italic
+                                  face = "bold")) # bold.italic
 
 chicago |> 
   ggplot(aes(x = date, y = temp_celsius)) +
@@ -95,7 +95,7 @@ chicago |>
   ggplot(aes(x = date, y = temp_celsius)) +
   geom_point(color = "firebrick") +
   labs(x = "Year", y = "Temperature (°C)") +
-  theme(axis.text.x = element_text(angle = 50, vjust = 1, hjust = 1, size = 12))
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1, size = 12))
 
 chicago |> 
   ggplot(aes(x = date, y = temp_celsius)) +
@@ -153,8 +153,8 @@ chicago |>
   labs(x = "Year", y = "Temperature (°C)",
        title = "Temperatures in Chicago") +
   theme(plot.title = element_text(face = "bold",
-                                  margin = margin(10, 0, 10, 0), # t b l r
-                                  size = 14))
+                                  margin = margin(30, 0, 30, 0), # t b l r
+                                  size = 20))
 
 chicago |> 
   ggplot(aes(x = date, y = temp_celsius)) +
@@ -162,14 +162,15 @@ chicago |>
   labs(x = "Year", y = NULL,
         title = "Temperatures in Chicago",
         caption = "Data: NMMAPS") +
-  theme(plot.title = element_text(hjust = 1, size = 16, face = "bold.italic")) # hjust = 0, 0.5, 1
+  theme(plot.title = element_text(hjust = 1, size = 16, face = "bold.italic"),
+        plot.caption = element_text(hjust = 0)) # hjust = 0, 0.5, 1
 
 chicago |> 
   ggplot(aes(x = date, y = temp_celsius)) +
   geom_point(color = "firebrick") +
   labs(x = "Year", y = "Temperature (°C)") +
   ggtitle("Temperatures in Chicago\nfrom 1997 to 2001") + # \n
-  theme(plot.title = element_text(lineheight = .8, size = 16))
+  theme(plot.title = element_text(lineheight = 0.8, size = 16))
 
 
 # Leyendas ---
@@ -201,7 +202,7 @@ chicago |>
   ggplot(aes(x = date, y = temp_celsius, color = season)) +
   geom_point() +
   labs(x = "Year", y = "Temperature (°C)") +
-  theme(legend.position = "top") # top, bottom, left, right, none
+  theme(legend.position = "bottom") # top, bottom, left, right, none
 
 chicago |> 
   ggplot(aes(x = date, y = temp_celsius, color = season)) +
@@ -271,14 +272,14 @@ chicago |>
     guides(color = guide_legend(override.aes = list(size = 5))) # Ajustar el tamaño de los puntos en la leyenda
 
 chicago |> 
-  ggplot(aes(x = date, y = temp_celsius, color = temp)) +
+  ggplot(aes(x = date, y = temp_celsius, color = temp_celsius)) +
   geom_point() +
   labs(x = "Year", 
        y = "Temperature (°C)", 
        color = "Temperature (°C)")
 
 chicago |> 
-  ggplot(aes(x = date, y = temp_celsius, color = temp)) +
+  ggplot(aes(x = date, y = temp_celsius, color = temp_celsius)) +
   geom_point() +
   labs(x = "Year", 
       y = "Temperature (°C)", 
@@ -286,7 +287,7 @@ chicago |>
   guides(color = guide_legend())
   
 chicago |> 
-  ggplot(aes(x = date, y = temp_celsius, color = temp)) +
+  ggplot(aes(x = date, y = temp_celsius, color = temp_celsius)) +
   geom_point() +
   labs(x = "Year", 
       y = "Temperature (°C)", 
@@ -405,7 +406,7 @@ chicago |>
   ggplot(aes(x = date, y = temp_celsius)) +
   geom_point() +
   geom_vline(xintercept = as.Date("2000-01-13"), lwd = 1.5, lty = 2, color = "red") + 
-  geom_text(x = as.Date("2000-01-13"), y = 30, label = "2000-01-13", hjust = -0.2, color = "red", size = 6) +
+  geom_text(x = as.Date("2000-01-13"), y = 30, label = "Texto ejemplo", hjust = -0.2, color = "red", size = 6) +
   labs(x = "Year", y = "Temperature (°C)")
 
 
@@ -417,6 +418,8 @@ g <- chicago |>
   scale_color_brewer(palette = "Dark2", guide = "none")
 
 g + geom_boxplot()
+
+g + geom_point()
 
 g + geom_jitter(width = 0.3, alpha = 0.5)
 
@@ -443,10 +446,10 @@ chicago |>
 
 chicago |> 
   ggplot(aes(x = date, y = o3run)) +
-   geom_ribbon(aes(ymin = 0, ymax = o3run),
+  geom_ribbon(aes(ymin = 0, ymax = o3run),
                fill = "orange", alpha = 0.4) +
-   geom_line(color = "chocolate", lwd = 0.8) +
-   labs(x = "Year", y = "Ozone")
+  geom_line(color = "chocolate", lwd = 0.8) +
+  labs(x = "Year", y = "Ozone")
 
 # Agregar desviación estándar
 chicago$mino3 <- chicago$o3run - sd(chicago$o3run, na.rm = TRUE)
@@ -513,7 +516,7 @@ hpv |>
   )
 
   
-# Ejemplo de datos para gráfico de barras agrupadas
+# Ejemplo de datos para gráfico de barras agrupadas (aunque no tiene mucho sentido agregar el género, pero es de ejemplo)
 hpv_grouped <- data.frame(
   hpv_type = rep(c("HPV type 16", "HPV type 18", "HPV type 45"), each = 2),
   Gender = rep(c("Male", "Female"), times = 3),
@@ -524,23 +527,6 @@ hpv_grouped <- data.frame(
 hpv_grouped |> 
   ggplot(aes(x = hpv_type, y = share, fill = Gender)) +
   geom_col(position = "dodge", width = 0.7) +  # Dodge agrupa las barras
-  labs(
-    title = "Distribución de tipos de HPV por género",
-    x = "Tipo de HPV",
-    y = "Porcentaje",
-    fill = "Género"
-  ) +
-  scale_y_continuous(expand = expansion(mult = c(0, 0.1))) +  # Expandir el eje Y ligeramente
-  theme_minimal() +
-  theme(
-    plot.title = element_text(hjust = 0.5),    # Centrar título
-    axis.text.x = element_text(angle = 45, hjust = 1)  # Rotar etiquetas del eje X
-  )
-
-hpv_grouped |> 
-  ggplot(aes(x = hpv_type, y = share, fill = Gender)) +
-  geom_col(position = "dodge", width = 0.7) +
-  geom_text(aes(label = share), position = position_dodge(width = 0.7), vjust = -1, size = 4) +
   labs(
     title = "Distribución de tipos de HPV por género",
     x = "Tipo de HPV",
@@ -597,7 +583,7 @@ hpv_total <- hpv_grouped |>
 
 hpv_grouped <- hpv_grouped |> 
   left_join(hpv_total, by = "hpv_type") |> 
-    mutate(percent = (share / total) * 100)
+  mutate(percent = (share / total) * 100)
 
 hpv_grouped |>
   ggplot(aes(x = hpv_type, y = share, fill = Gender)) +
@@ -681,6 +667,8 @@ ggplot(data, aes(x = category, y = value)) +
   theme_classic() +
   theme(axis.text.x = element_text(hjust = 1))
 
+
+# Otros ejemplos...
 
 # Gráfico de líneas ----
 data <- read_csv("https://raw.githubusercontent.com/github/innovationgraph/main/data/languages.csv")
